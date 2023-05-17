@@ -1,0 +1,232 @@
+﻿@page "/personagens"
+@inject HttpClient HttpClient;
+
+<div class="is-size-3">Personagens</div>
+
+<button class="button is-primary my-2" @onclick="NovoPersonagemClick">Novo Personagem</button>
+
+@if (personagens == null || !personagens.Any())
+{
+    <p>Nenhum personagem encontrado</p>
+}
+else
+{
+    <table class="table is-bordered is-fullwidth">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Vida</th>
+                <th>Força</th>
+                <th>Defesa</th>
+                <th>Agilidade</th>
+                <th>Qtd de Dados</th>
+                <th>Faces do Dado</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var personagem in personagens)
+            {
+                <tr>
+                    <td>@personagem.Nome</td>
+                    <td>@personagem.Tipo</td>
+                    <td>@personagem.Vida</td>
+                    <td>@personagem.Forca</td>
+                    <td>@personagem.Defesa</td>
+                    <td>@personagem.Agilidade</td>
+                    <td>@personagem.QtdDados</td>
+                    <td>@personagem.FacesDado</td>
+                    <td>
+                        <p class="buttons">
+                            <button class="button is-warning" @onclick="()=>EditarPersonagemClick(personagem)">
+                                <span class="icon is-small">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </span>
+                            </button>
+                            <button class="button is-danger" @onclick="()=>DeletarPersonagemClick(personagem)">
+                                <span class="icon is-small">
+                                    <i class="fa-sharp fa-solid fa-trash"></i>
+                                </span>
+                            </button>
+                        </p>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+
+<ModalApp Aberto="modalAberto"
+          Title="Personagem"
+          Confirmacao="SalvarPersonagem" Cancelar="ModalCancelar">
+
+    <div>
+
+        <div class="field">
+            <label class="label">Tipo</label>
+            <div class="control">
+                <div class="select">
+                    <select @bind="personagem.Tipo">
+                        <option value="@PersonagemTipo.Heroi">Herói</option>
+                        <option value="@PersonagemTipo.Monstro">Monstro</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Nome</label>
+            <div class="control">
+                <input @bind-value="personagem.Nome" class="input" type="text">
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Vida</label>
+            <div class="control">
+                <input @bind-value="personagem.Vida" class="input" type="number">
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Força</label>
+            <div class="control">
+                <input @bind-value="personagem.Forca" class="input" type="number">
+            </div>
+        </div>
+
+
+        <div class="field">
+            <label class="label">Defesa</label>
+            <div class="control">
+                <input @bind-value="personagem.Defesa" class="input" type="number">
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Agilidade</label>
+            <div class="control">
+                <input @bind-value="personagem.Agilidade" class="input" type="number">
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Quantidade de Dados</label>
+            <div class="control">
+                <input @bind-value="personagem.QtdDados" class="input" type="number">
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Faces do Dado</label>
+            <div class="control">
+                <input @bind-value="personagem.FacesDado" class="input" type="number">
+            </div>
+        </div>
+    </div>
+</ModalApp>
+
+
+@code {
+    private List<PersonagemViewModel> personagens;
+
+    private bool modalAberto = false;
+
+    private PersonagemViewModel personagem;
+
+    public void EditarPersonagemClick(PersonagemViewModel personagem)
+    {
+        this.personagem = (PersonagemViewModel) personagem.Clone();
+        AbrirModal();
+    }
+
+    public async Task DeletarPersonagemClick(PersonagemViewModel personagem)
+    {
+        var resposta = await HttpClient.DeleteAsync($"personagem/{personagem.Id}");
+        if (resposta.IsSuccessStatusCode)
+        {
+            await ObterPesonagens();
+        }
+    }
+
+    public async Task SalvarPersonagem()
+    {
+
+        if (personagem == null)
+        {
+            FecharModal();
+        }
+
+        if (personagem.Id > 0)
+        {
+            var resultado = await HttpClient.PutAsJsonAsync<PersonagemViewModel>($"personagem/{personagem.Id}", personagem);
+            if (resultado.IsSuccessStatusCode)
+            {
+                FecharModal();
+                await ObterPesonagens();
+            }
+        }
+        else
+        {
+
+            var resultado = await HttpClient.PostAsJsonAsync<PersonagemViewModel>("personagem", personagem);
+            if (resultado.IsSuccessStatusCode)
+            {
+                FecharModal();
+                await ObterPesonagens();
+            }
+        }
+    }
+
+    public void ModalSelectOnChange(ChangeEventArgs args)
+    {
+        string value = (string)args.Value;
+        personagem.Tipo = Enum.Parse<PersonagemTipo>(value);
+    }
+
+    public void NovoPersonagemClick()
+    {
+        personagem = new PersonagemViewModel();
+        AbrirModal();
+    }
+
+    public void AbrirModal()
+    {
+        modalAberto = true;
+    }
+
+
+    public void FecharModal()
+    {
+        modalAberto = false;
+    }
+
+    public void ModalConfirmacao()
+    {
+        Console.WriteLine("Confirmacao Clicada");
+    }
+
+    public void ModalCancelar()
+    {
+        FecharModal();
+    }
+
+    public async Task ObterPesonagens()
+    {
+        var resultado = await HttpClient.GetFromJsonAsync<List<PersonagemViewModel>>("personagem");
+
+        personagens = resultado;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        await ObterPesonagens();
+
+        await base.OnInitializedAsync();
+    }
+
+
+}

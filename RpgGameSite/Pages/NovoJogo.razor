@@ -1,0 +1,95 @@
+﻿@page "/novo-jogo"
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager;
+
+<div class="is-size-3">Novo Jogo</div>
+
+@if (personagens == null || !personagens.Any())
+{
+    <div>Nenhum personagem para escolher</div>
+}
+else
+{
+    <div class="field">
+        <label class="label">Nome Jogador 1</label>
+        <div class="control">
+            <input @bind-value="jogador1Nome" class="input" type="text">
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Personagem</label>
+        <div class="control">
+            <div class="select">
+                <select @bind="personagem1Id">
+                    @foreach (var personagem in personagens)
+                    {
+                        <option value="@personagem.Id">@personagem.Nome</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Nome Jogador 2</label>
+        <div class="control">
+            <input @bind-value="jogador2Nome" class="input" type="text">
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Personagem</label>
+        <div class="control">
+            <div class="select">
+                <select @bind="personagem2Id">
+                    @foreach (var personagem in personagens)
+                    {
+                        <option value="@personagem.Id">@personagem.Nome</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+    <button class="button is-primary" @onclick="EnviarNovoJogo">Novo Jogo</button>
+}
+
+
+
+
+@code {
+
+
+    private List<PersonagemViewModel> personagens;
+    private string jogador1Nome;
+    private string jogador2Nome;
+    private long personagem1Id;
+    private long personagem2Id;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ObterPersonagens();
+
+        await base.OnInitializedAsync();
+    }
+
+    public async Task EnviarNovoJogo()
+    {
+        //string jogador1Nome, long personagem1Id, string jogador2Nome, long personagem2Id
+        var resultado = await HttpClient.PostAsync($"partida/novo-jogo?jogador1Nome={jogador1Nome}&personagem1Id={personagem1Id}&jogador2Nome={jogador2Nome}&personagem2Id={personagem2Id}", null);
+        if (resultado.IsSuccessStatusCode)
+        {
+            PartidaViewModel partida = await resultado.Content.ReadFromJsonAsync<PartidaViewModel>();
+            NavigationManager.NavigateTo($"/partida/{partida.Id}");
+        }
+    }
+
+    public async Task ObterPersonagens()
+    {
+        var resultado = await HttpClient.GetFromJsonAsync<List<PersonagemViewModel>>("personagem");
+        personagens = resultado;
+    }
+}

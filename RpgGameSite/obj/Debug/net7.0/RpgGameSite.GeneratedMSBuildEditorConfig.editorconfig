@@ -1,0 +1,65 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = RpgGameSite
+build_property.RootNamespace = RpgGameSite
+build_property.ProjectDir = C:\Users\gusta\source\repos\RpgGame\RpgGameSite\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\gusta\source\repos\RpgGame\RpgGameSite
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/gusta/source/repos/RpgGame/RpgGameSite/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gusta/source/repos/RpgGame/RpgGameSite/Components/ModalApp.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xNb2RhbEFwcC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gusta/source/repos/RpgGame/RpgGameSite/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gusta/source/repos/RpgGame/RpgGameSite/Pages/FetchData.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gusta/source/repos/RpgGame/RpgGameSite/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gusta/source/repos/RpgGame/RpgGameSite/Pages/NovoJogo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm92b0pvZ28ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gusta/source/repos/RpgGame/RpgGameSite/Pages/Partida.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFydGlkYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gusta/source/repos/RpgGame/RpgGameSite/Pages/Personagens.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGVyc29uYWdlbnMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gusta/source/repos/RpgGame/RpgGameSite/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gusta/source/repos/RpgGame/RpgGameSite/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gusta/source/repos/RpgGame/RpgGameSite/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-q6e7uvwhfh
+
+[C:/Users/gusta/source/repos/RpgGame/RpgGameSite/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-g3mr4qpfwi

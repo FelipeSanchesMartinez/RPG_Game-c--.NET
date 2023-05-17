@@ -1,0 +1,46 @@
+﻿@inject NavigationManager NavigationManager;
+
+
+<nav class="navbar is-transparent">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="https://bulma.io">
+            <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
+        </a>
+        <div class="navbar-burger" data-target="navbarExampleTransparentExample" @onclick="AbrirNavBar">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <div id="navbarExampleTransparentExample" class="navbar-menu @IsActiveClass">
+        <div class="navbar-start">
+            <a class="navbar-item" @onclick="@(()=>Navegar("/personagens"))">
+                Personagens
+            </a>
+            <a class="navbar-item" @onclick="@(()=>Navegar("/novo-jogo"))">
+                Novo Jogo
+            </a>
+
+        </div>
+
+    </div>
+</nav>
+
+@code {
+    private bool navBarAberta = false;
+
+    public string IsActiveClass { get { return navBarAberta == true ? "is-active" : "";  } }
+
+    public void AbrirNavBar()
+    {
+        navBarAberta = !navBarAberta;
+    }
+
+    public void Navegar(string url)
+    {
+        AbrirNavBar();
+        NavigationManager.NavigateTo(url);
+    }
+
+}

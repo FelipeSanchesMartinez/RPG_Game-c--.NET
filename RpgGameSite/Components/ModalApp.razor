@@ -1,0 +1,48 @@
+﻿<div class="modal @IsActiveClass">
+    <div class="modal-background "></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">@Title</p>
+            <button class="delete" aria-label="close" @onclick="CancelarClick"></button>
+        </header>
+        <section class="modal-card-body">
+            @ChildContent
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success" @onclick="ConfirmacaoClick">Salvar</button>
+            <button class="button" @onclick="CancelarClick">Cancelar</button>
+        </footer>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public bool Aberto { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback Confirmacao { get; set; }
+
+    [Parameter]
+    public EventCallback Cancelar { get; set; }
+
+    public string IsActiveClass { get { return Aberto ? "is-active" : "";  } }
+
+    public void ConfirmacaoClick()
+    {
+        Confirmacao.InvokeAsync();
+    }
+
+
+    public void CancelarClick()
+    {
+        Cancelar.InvokeAsync();
+    }
+
+
+}

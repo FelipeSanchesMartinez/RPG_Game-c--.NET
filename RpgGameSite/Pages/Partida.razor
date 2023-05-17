@@ -1,0 +1,10 @@
+﻿@page "/partida/{Id:long}"
+
+<div class="is-size-3">Partida @Id</div>
+
+@code {
+
+    [Parameter]
+    public long Id { get; set; }
+
+}
